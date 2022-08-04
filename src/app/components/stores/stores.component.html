@@ -1,0 +1,164 @@
+<p-toast></p-toast>
+<div class="card mt-4">
+  <p-toolbar>
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New Vendor"
+        icon="pi pi-plus"
+        class="p-button-success p-button-text p-mr-2"
+        (click)="newStore()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table
+    #dt
+    [value]="stores"
+    [rows]="5"
+    [paginator]="true"
+    [globalFilterFields]="['storeName', 'storeCity', 'storeState']"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h3 class="m-0">Manage Stores</h3>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="storeName">
+          Store Name <p-sortIcon field="storeName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storeCity">
+          Store City <p-sortIcon field="storeCity"></p-sortIcon>
+        </th>
+        <th pSortableColumn="storeState">
+          Store State <p-sortIcon field="storeState"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-store | async>
+      <tr>
+        <td>{{ store.storeName }}</td>
+        <td>{{ store.storeCity }}</td>
+        <td>{{ store.storeState.name }}</td>
+        <td>
+          <span>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-info"
+              pTooltip="Edit"
+              tooltipPosition="bottom"
+              (click)="editStore(store)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-warning"
+              pTooltip="Delete"
+              tooltipPosition="bottom"
+              (click)="deleteStore(store.id)"
+            ></button>
+          </span>
+          store
+        </td>
+      </tr>
+
+      <p-confirmDialog
+        [style]="{ width: '50vw' }"
+        [baseZIndex]="10000"
+        rejectButtonStyleClass="p-button-text"
+      ></p-confirmDialog>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ stores ? stores.length : 0 }} stores.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  [(visible)]="storeDialog"
+  [style]="{ width: '450px' }"
+  header="Vendor Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form
+      #addVendorForm="ngForm"
+      (ngSubmit)="onSubmit(addVendorForm.value, id!)"
+      novalidate
+    >
+      <div class="field">
+        <label for="storeName">Store Name</label>
+        <input
+          type="text"
+          pInputText
+          id="storeName"
+          name="storeName"
+          [(ngModel)]="store.storeName"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !store.storeName"
+          >Name is required.</small
+        >
+      </div>
+      <div class="field">
+        <label for="storeCity">Store City</label>
+        <input
+          type="text"
+          pInputText
+          id="storeCity"
+          name="storeCity"
+          [(ngModel)]="store.storeCity"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !store.storeCity"
+          >City is required.</small
+        >
+      </div>
+      <div class="field">
+        <p-dropdown
+          [options]="states"
+          name="storeState"
+          [(ngModel)]="store.storeState"
+          placeholder="Select a State"
+          optionLabel="name"
+          [showClear]="true"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="submitted && !store.storeState"
+          >State is required.</small
+        >
+      </div>
+      <div>
+        <button
+          pButton
+          type="submit"
+          value="Submit"
+          label="Save"
+          icon="pi pi-check"
+          class="p-button-raised p-button-text p-button-success mt-3"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="Cancel"
+          icon="pi pi-times"
+          class="p-button-raised p-button-text p-button-warning mt-3"
+          (click)="hideDialog()"
+        ></button>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>
