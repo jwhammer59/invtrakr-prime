@@ -5,9 +5,9 @@
       <button
         pButton
         pRipple
-        label="New Vendor"
+        label="New Store"
         icon="pi pi-plus"
-        class="p-button-success p-button-text p-mr-2"
+        class="p-button-success p-button-outlined p-mr-2"
         (click)="newStore()"
       ></button>
     </ng-template>
@@ -46,29 +46,26 @@
       <tr>
         <td>{{ store.storeName }}</td>
         <td>{{ store.storeCity }}</td>
-        <td>{{ store.storeState.name }}</td>
-        <td>
-          <span>
-            <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-info"
-              pTooltip="Edit"
-              tooltipPosition="bottom"
-              (click)="editStore(store)"
-            ></button>
-            <button
-              pButton
-              pRipple
-              icon="pi pi-trash"
-              class="p-button-warning"
-              pTooltip="Delete"
-              tooltipPosition="bottom"
-              (click)="deleteStore(store.id)"
-            ></button>
-          </span>
-          store
+        <td>{{ store.storeState }}</td>
+        <td class="flex">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-info p-button-outlined"
+            pTooltip="Edit"
+            tooltipPosition="bottom"
+            (click)="editStore(store)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-warning p-button-outlined"
+            pTooltip="Delete"
+            tooltipPosition="bottom"
+            (click)="deleteStore(store.id)"
+          ></button>
         </td>
       </tr>
 
@@ -134,7 +131,6 @@
           name="storeState"
           [(ngModel)]="store.storeState"
           placeholder="Select a State"
-          optionLabel="name"
           [showClear]="true"
         ></p-dropdown>
         <small class="p-error" *ngIf="submitted && !store.storeState"

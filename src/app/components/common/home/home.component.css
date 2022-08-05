@@ -1,3 +1,11 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+
 .main::before {
   background-image: url("/assets/home-inventory.jpg");
   background-size: cover;
@@ -10,4 +18,25 @@
   height: 100%;
   z-index: -2;
   opacity: 0.4;
+}
+
+#cta {
+  margin: auto;
+  width: 50%;
+}
+
+#center-v {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1 {
+  text-align: center;
+}
+
+#btn-layout {
+  text-align: center;
 }
