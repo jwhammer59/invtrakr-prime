@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Store } from 'src/app/models/Store';
-import { StoresService } from 'src/app/services/stores.service';
-
-import { State } from 'src/app/models/State';
-import { STATES } from 'src/app/data/state-data';
+import { PaymentType } from 'src/app/models/PaymentType';
+import { PaymentTypesService } from 'src/app/services/payment-types.service';
 
 import {
   ConfirmationService,
@@ -14,53 +11,50 @@ import {
 } from 'primeng/api';
 
 @Component({
-  selector: 'app-stores',
-  templateUrl: './stores.component.html',
-  styleUrls: ['./stores.component.css'],
+  selector: 'app-payment-types',
+  templateUrl: './payment-types.component.html',
+  styleUrls: ['./payment-types.component.css'],
 })
-export class StoresComponent implements OnInit {
-  storeDialog: boolean = false;
+export class PaymentTypesComponent implements OnInit {
+  paymentTypeDialog: boolean = false;
   submitted: boolean = false;
 
-  states: State[] = STATES;
-
-  stores: Store[] = [];
+  paymentTypes: PaymentType[] = [];
 
   id?: string = '';
 
-  store: Store = {
+  paymentType: PaymentType = {
     id: '',
-    storeName: '',
-    storeCity: '',
-    storeState: '',
+    paymentTypeName: '',
+    paymentTypeIssuedBy: '',
   };
 
   constructor(
-    private storesService: StoresService,
+    private paymentTypesService: PaymentTypesService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private primengConfig: PrimeNGConfig
   ) {
-    this.storesService
-      .getStores()
-      .subscribe((stores) => (this.stores = stores));
+    this.paymentTypesService
+      .getPaymentTypes()
+      .subscribe((paymentTypes) => (this.paymentTypes = paymentTypes));
   }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
   }
 
-  newStore() {
+  newPaymentType() {
     this.submitted = false;
-    this.storeDialog = true;
+    this.paymentTypeDialog = true;
   }
 
-  onSubmit(val: Store, id: string) {
+  onSubmit(val: PaymentType, id: string) {
     this.submitted = true;
 
-    if (this.store.storeName.trim()) {
-      if (this.store.id) {
-        this.storesService.updateStore(val, id);
+    if (this.paymentType.paymentTypeName.trim()) {
+      if (this.paymentType.id) {
+        this.paymentTypesService.updatePaymentType(val, id);
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -68,7 +62,7 @@ export class StoresComponent implements OnInit {
           life: 3000,
         });
       } else {
-        this.storesService.addStore(val);
+        this.paymentTypesService.addPaymentType(val);
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -81,7 +75,7 @@ export class StoresComponent implements OnInit {
     }
   }
 
-  deleteStore(id: string) {
+  deletePaymentType(id: string) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to proceed?',
       header: 'Confirmation',
@@ -90,9 +84,9 @@ export class StoresComponent implements OnInit {
         this.messageService.add({
           severity: 'info',
           summary: 'Confirmed',
-          detail: 'Store Deleted!!',
+          detail: 'Payment Type Deleted!!',
         });
-        this.storesService.deleteStore(id);
+        this.paymentTypesService.deletePaymentType(id);
         this.confirmationService.close();
       },
       reject: (type: any) => {
@@ -101,14 +95,14 @@ export class StoresComponent implements OnInit {
             this.messageService.add({
               severity: 'error',
               summary: 'Rejected',
-              detail: 'You have rejected Store deletion.',
+              detail: 'You have rejected Payment Type deletion.',
             });
             break;
           case ConfirmEventType.CANCEL:
             this.messageService.add({
               severity: 'warn',
               summary: 'Cancelled',
-              detail: 'You have cancelled Store deletion.',
+              detail: 'You have cancelled Payment Type deletion.',
             });
             break;
         }
@@ -118,20 +112,19 @@ export class StoresComponent implements OnInit {
   }
 
   hideDialog() {
-    this.storeDialog = false;
+    this.paymentTypeDialog = false;
     this.submitted = false;
   }
 
-  editStore(store: Store) {
-    this.store = { ...store };
-    this.id = this.store.id;
-    this.storeDialog = true;
+  editPaymentType(paymentType: PaymentType) {
+    this.paymentType = { ...paymentType };
+    this.id = this.paymentType.id;
+    this.paymentTypeDialog = true;
   }
 
   resetForm() {
-    this.store.id = '';
-    this.store.storeCity = '';
-    this.store.storeName = '';
-    this.store.storeState = '';
+    this.paymentType.id = '';
+    this.paymentType.paymentTypeName = '';
+    this.paymentType.paymentTypeIssuedBy = '';
   }
 }

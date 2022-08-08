@@ -5,19 +5,19 @@
       <button
         pButton
         pRipple
-        label="New Store"
+        label="New Payment Type"
         icon="pi pi-plus"
         class="p-button-success p-button-outlined p-mr-2"
-        (click)="newStore()"
+        (click)="newPaymentType()"
       ></button>
     </ng-template>
   </p-toolbar>
   <p-table
     #dt
-    [value]="stores"
+    [value]="paymentTypes"
     [rows]="5"
     [paginator]="true"
-    [globalFilterFields]="['storeName', 'storeCity', 'storeState']"
+    [globalFilterFields]="['paymentTypeName', 'paymentTypeIssuedBy']"
     [rowHover]="true"
     dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -26,28 +26,25 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-        <h3 class="m-0">Manage Stores</h3>
+        <h3 class="m-0">Manage Payment Types</h3>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="storeName">
-          Store Name <p-sortIcon field="storeName"></p-sortIcon>
+        <th pSortableColumn="paymentTypeName">
+          Payment Type Name <p-sortIcon field="paymentTypeName"></p-sortIcon>
         </th>
-        <th pSortableColumn="storeCity">
-          Store City <p-sortIcon field="storeCity"></p-sortIcon>
-        </th>
-        <th pSortableColumn="storeState">
-          Store State <p-sortIcon field="storeState"></p-sortIcon>
+        <th pSortableColumn="paymentTypeIssuedBy">
+          Payment Type Issued By
+          <p-sortIcon field="paymentTypeIssuedBy"></p-sortIcon>
         </th>
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-store | async>
+    <ng-template pTemplate="body" let-paymentType | async>
       <tr>
-        <td>{{ store.storeName }}</td>
-        <td>{{ store.storeCity }}</td>
-        <td>{{ store.storeState }}</td>
+        <td>{{ paymentType.paymentTypeName }}</td>
+        <td>{{ paymentType.paymentTypeIssuedBy }}</td>
         <td class="flex">
           <button
             pButton
@@ -56,7 +53,7 @@
             class="p-button-info p-button-outlined mr-2"
             pTooltip="Edit"
             tooltipPosition="bottom"
-            (click)="editStore(store)"
+            (click)="editPaymentType(paymentType)"
           ></button>
           <button
             pButton
@@ -65,7 +62,7 @@
             class="p-button-warning p-button-outlined"
             pTooltip="Delete"
             tooltipPosition="bottom"
-            (click)="deleteStore(store.id)"
+            (click)="deletePaymentType(paymentType.id)"
           ></button>
         </td>
       </tr>
@@ -78,64 +75,54 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-        In total there are {{ stores ? stores.length : 0 }} stores.
+        In total there are {{ paymentTypes ? paymentTypes.length : 0 }} stores.
       </div>
     </ng-template>
   </p-table>
 </div>
 <p-dialog
-  [(visible)]="storeDialog"
+  [(visible)]="paymentTypeDialog"
   [style]="{ width: '450px' }"
-  header="Vendors"
+  header="Payment Types"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
     <form
-      #addVendorForm="ngForm"
-      (ngSubmit)="onSubmit(addVendorForm.value, id!)"
+      #addPaymentTypesForm="ngForm"
+      (ngSubmit)="onSubmit(addPaymentTypesForm.value, id!)"
       novalidate
     >
       <div class="field">
-        <label for="storeName">Store Name</label>
+        <label for="paymentTypeName">Payment Type Name</label>
         <input
           type="text"
           pInputText
-          id="storeName"
-          name="storeName"
-          [(ngModel)]="store.storeName"
+          id="paymentTypeName"
+          name="paymentTypeName"
+          [(ngModel)]="paymentType.paymentTypeName"
           required
           autofocus
         />
-        <small class="p-error" *ngIf="submitted && !store.storeName"
-          >Name is required.</small
+        <small class="p-error" *ngIf="submitted && !paymentType.paymentTypeName"
+          >Payment Type Name is required.</small
         >
       </div>
       <div class="field">
-        <label for="storeCity">Store City</label>
+        <label for="paymentTypeIssuedBy">Payment Issued By</label>
         <input
           type="text"
           pInputText
-          id="storeCity"
-          name="storeCity"
-          [(ngModel)]="store.storeCity"
+          id="paymentTypeIssuedBy"
+          name="paymentTypeIssuedBy"
+          [(ngModel)]="paymentType.paymentTypeIssuedBy"
           required
           autofocus
         />
-        <small class="p-error" *ngIf="submitted && !store.storeCity"
-          >City is required.</small
-        >
-      </div>
-      <div class="field">
-        <p-dropdown
-          [options]="states"
-          name="storeState"
-          [(ngModel)]="store.storeState"
-          placeholder="Select a State"
-          [showClear]="true"
-        ></p-dropdown>
-        <small class="p-error" *ngIf="submitted && !store.storeState"
-          >State is required.</small
+        <small
+          class="p-error"
+          *ngIf="submitted && !paymentType.paymentTypeIssuedBy"
+          >Payment Type Issued By is required.</small
         >
       </div>
       <div>
@@ -145,14 +132,14 @@
           value="Submit"
           label="Save"
           icon="pi pi-check"
-          class="p-button-raised p-button-text p-button-success mt-3"
+          class="p-button-raised p-button-text p-button-success"
         ></button>
         <button
           pButton
           pRipple
           label="Cancel"
           icon="pi pi-times"
-          class="p-button-raised p-button-text p-button-warning mt-3"
+          class="p-button-raised p-button-text p-button-warning"
           (click)="hideDialog()"
         ></button>
       </div>

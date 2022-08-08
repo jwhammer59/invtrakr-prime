@@ -27,6 +27,7 @@ import { StoresComponent } from './components/stores/stores.component';
 // Auth Imports
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './components/auth/auth-guard';
+import { PaymentTypesComponent } from './components/payment-types/payment-types.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AuthGuard } from './components/auth/auth-guard';
     NavComponent,
     LoginComponent,
     StoresComponent,
+    PaymentTypesComponent,
   ],
   imports: [
     BrowserModule,
