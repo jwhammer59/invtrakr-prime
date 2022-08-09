@@ -28,6 +28,9 @@ import { StoresComponent } from './components/stores/stores.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './components/auth/auth-guard';
 import { PaymentTypesComponent } from './components/payment-types/payment-types.component';
+import { DwellingsComponent } from './components/dwellings/dwellings.component';
+import { RoomsComponent } from './components/rooms/rooms.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { PaymentTypesComponent } from './components/payment-types/payment-types.
     LoginComponent,
     StoresComponent,
     PaymentTypesComponent,
+    DwellingsComponent,
+    RoomsComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

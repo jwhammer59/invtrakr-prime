@@ -32,6 +32,11 @@ export class NavComponent implements OnInit {
             },
           },
           {
+            label: 'Dashboard',
+            icon: 'pi pi-fw pi-desktop',
+            routerLink: ['dashboard'],
+          },
+          {
             label: 'Items',
             icon: 'pi pi-fw pi-tags',
             routerLink: ['items'],
@@ -48,6 +53,11 @@ export class NavComponent implements OnInit {
             label: 'Settings',
             icon: 'pi pi-fw pi-cog',
             items: [
+              {
+                label: 'Rooms List',
+                icon: 'pi pi-fw pi-list',
+                routerLink: ['rooms'],
+              },
               {
                 label: 'Stores List',
                 icon: 'pi pi-fw pi-list',
