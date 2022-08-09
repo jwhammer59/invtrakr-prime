@@ -1,1 +1,196 @@
-<p>dwellings works!</p>
+<p-toast></p-toast>
+<div class="card mt-4">
+  <p-toolbar>
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Add Dwelling"
+        icon="pi pi-plus"
+        class="p-button-success p-button-outlined p-mr-2"
+        (click)="newDwelling()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table
+    #dt
+    [value]="dwellings"
+    [rows]="5"
+    [paginator]="true"
+    [globalFilterFields]="['dwellingName', 'dwellingCity', 'dwellingState']"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5, 10, 20]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h3 class="m-0">Manage Dwellings</h3>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="dwellingName">
+          Dwelling Name <p-sortIcon field="dwellingName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="dwellingCity">
+          Dwelling City <p-sortIcon field="dwellingCity"></p-sortIcon>
+        </th>
+        <th pSortableColumn="dwellingState">
+          Dwelling State <p-sortIcon field="dwellingState"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dwelling | async>
+      <tr>
+        <td>{{ dwelling.dwellingName }}</td>
+        <td>{{ dwelling.dwellingCity }}</td>
+        <td>{{ dwelling.dwellingState }}</td>
+        <td class="flex">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-info p-button-outlined mr-2"
+            pTooltip="Edit Dwelling"
+            tooltipPosition="bottom"
+            (click)="editDwelling(dwelling)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-warning p-button-outlined"
+            pTooltip="Delete Dwelling"
+            tooltipPosition="bottom"
+            (click)="deleteDwelling(dwelling.id)"
+          ></button>
+        </td>
+      </tr>
+
+      <p-confirmDialog
+        [style]="{ width: '50vw' }"
+        [baseZIndex]="10000"
+        rejectButtonStyleClass="p-button-text"
+      ></p-confirmDialog>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ dwellings ? dwellings.length : 0 }} stores.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  [(visible)]="dwellingDialog"
+  [style]="{ width: '450px' }"
+  header="Dwellings"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form
+      #addDwellingForm="ngForm"
+      (ngSubmit)="onSubmit(addDwellingForm.value, id!)"
+      novalidate
+    >
+      <div class="field">
+        <label for="dwellingName">Dwelling Name</label>
+        <input
+          type="text"
+          pInputText
+          id="dwellingName"
+          name="dwellingName"
+          [(ngModel)]="dwelling.dwellingName"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !dwelling.dwellingName"
+          >Dwelling name is required.</small
+        >
+      </div>
+      <div class="field">
+        <label for="dwellingAddress1">Dwelling Address 1</label>
+        <input
+          type="text"
+          pInputText
+          id="dwellingAddress1"
+          name="dwellingAddress1"
+          [(ngModel)]="dwelling.dwellingAddress1"
+          required
+        />
+        <small class="p-error" *ngIf="submitted && !dwelling.dwellingAddress1"
+          >Dwelling Address 1 is required.</small
+        >
+      </div>
+      <div class="field">
+        <label for="dwellingAddress2">Dwelling Address 2</label>
+        <input
+          type="text"
+          pInputText
+          id="dwellingAddress2"
+          name="dwellingAddress2"
+          [(ngModel)]="dwelling.dwellingAddress2"
+        />
+      </div>
+      <div class="field">
+        <label for="dwellingCity">Dwelling City</label>
+        <input
+          type="text"
+          pInputText
+          id="dwellingCity"
+          name="dwellingCity"
+          [(ngModel)]="dwelling.dwellingCity"
+          required
+        />
+        <small class="p-error" *ngIf="submitted && !dwelling.dwellingCity"
+          >Dwelling city is required.</small
+        >
+      </div>
+      <div class="field">
+        <label for="dwellingState">Dwelling State</label>
+        <p-dropdown
+          [options]="states"
+          name="dwellingState"
+          [(ngModel)]="dwelling.dwellingState"
+          placeholder="Select a State"
+          [showClear]="true"
+          [required]="true"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="submitted && !dwelling.dwellingState"
+          >Dwelling state is required.</small
+        >
+      </div>
+      <div class="field">
+        <label for="dwellingZipcode">Dwelling Zipcode</label>
+        <p-inputMask
+          name="dwellingZipcode"
+          slotChar="#"
+          mask="99999"
+          [(ngModel)]="dwelling.dwellingZipcode"
+          placeholder="99999"
+        ></p-inputMask>
+      </div>
+      <div>
+        <button
+          pButton
+          type="submit"
+          value="Submit"
+          label="Save"
+          icon="pi pi-check"
+          class="p-button-raised p-button-text p-button-success mt-3"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="Cancel"
+          icon="pi pi-times"
+          class="p-button-raised p-button-text p-button-warning mt-3"
+          (click)="hideDialog()"
+        ></button>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>

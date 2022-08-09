@@ -1,1 +1,142 @@
-<p>rooms works!</p>
+<p-toast></p-toast>
+<div class="card mt-4">
+  <p-toolbar>
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="Add Room"
+        icon="pi pi-plus"
+        class="p-button-success p-button-outlined p-mr-2"
+        (click)="newRoom()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table
+    #dt
+    [value]="rooms"
+    [rows]="5"
+    [paginator]="true"
+    [globalFilterFields]="['roomName', 'roomLevel']"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5, 10, 25]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h3 class="m-0">Manage Rooms</h3>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="roomName">
+          Room Name <p-sortIcon field="roomName"></p-sortIcon>
+        </th>
+        <th pSortableColumn="roomLevel">
+          Room Level <p-sortIcon field="roomLevel"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-room | async>
+      <tr>
+        <td>{{ room.roomName }}</td>
+        <td>{{ room.roomLevel }}</td>
+        <td class="flex">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-info p-button-outlined mr-2"
+            pTooltip="Edit Room"
+            tooltipPosition="bottom"
+            (click)="editRoom(room)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-warning p-button-outlined"
+            pTooltip="Delete Room"
+            tooltipPosition="bottom"
+            (click)="deleteRoom(room.id)"
+          ></button>
+        </td>
+      </tr>
+
+      <p-confirmDialog
+        [style]="{ width: '50vw' }"
+        [baseZIndex]="10000"
+        rejectButtonStyleClass="p-button-text"
+      ></p-confirmDialog>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        In total there are {{ rooms ? rooms.length : 0 }} stores.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  [(visible)]="roomDialog"
+  [style]="{ width: '450px' }"
+  header="Rooms"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form
+      #addRoomForm="ngForm"
+      (ngSubmit)="onSubmit(addRoomForm.value, id!)"
+      novalidate
+    >
+      <div class="field">
+        <label for="roomName">Room Name</label>
+        <input
+          type="text"
+          pInputText
+          id="roomName"
+          name="roomName"
+          [(ngModel)]="room.roomName"
+          required
+          autofocus
+        />
+        <small class="p-error" *ngIf="submitted && !room.roomName"
+          >Room Name is required.</small
+        >
+      </div>
+      <div class="field">
+        <p-dropdown
+          [options]="roomLevels"
+          name="roomLevel"
+          [(ngModel)]="room.roomLevel"
+          placeholder="Select a room level."
+          [showClear]="true"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="submitted && !room.roomLevel"
+          >Room Level is required.</small
+        >
+      </div>
+      <div>
+        <button
+          pButton
+          type="submit"
+          value="Submit"
+          label="Save"
+          icon="pi pi-check"
+          class="p-button-raised p-button-text p-button-success mt-3"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="Cancel"
+          icon="pi pi-times"
+          class="p-button-raised p-button-text p-button-warning mt-3"
+          (click)="hideDialog()"
+        ></button>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>

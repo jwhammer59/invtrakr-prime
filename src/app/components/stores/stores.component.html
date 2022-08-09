@@ -5,7 +5,7 @@
       <button
         pButton
         pRipple
-        label="New Store"
+        label="Add Store"
         icon="pi pi-plus"
         class="p-button-success p-button-outlined p-mr-2"
         (click)="newStore()"
@@ -54,7 +54,7 @@
             pRipple
             icon="pi pi-pencil"
             class="p-button-info p-button-outlined mr-2"
-            pTooltip="Edit"
+            pTooltip="Edit Store"
             tooltipPosition="bottom"
             (click)="editStore(store)"
           ></button>
@@ -63,7 +63,7 @@
             pRipple
             icon="pi pi-trash"
             class="p-button-warning p-button-outlined"
-            pTooltip="Delete"
+            pTooltip="Delete Store"
             tooltipPosition="bottom"
             (click)="deleteStore(store.id)"
           ></button>
@@ -86,14 +86,14 @@
 <p-dialog
   [(visible)]="storeDialog"
   [style]="{ width: '450px' }"
-  header="Vendors"
+  header="Stores"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
     <form
-      #addVendorForm="ngForm"
-      (ngSubmit)="onSubmit(addVendorForm.value, id!)"
+      #addStoreForm="ngForm"
+      (ngSubmit)="onSubmit(addStoreForm.value, id!)"
       novalidate
     >
       <div class="field">
@@ -108,7 +108,7 @@
           autofocus
         />
         <small class="p-error" *ngIf="submitted && !store.storeName"
-          >Name is required.</small
+          >Store name is required.</small
         >
       </div>
       <div class="field">
@@ -123,7 +123,7 @@
           autofocus
         />
         <small class="p-error" *ngIf="submitted && !store.storeCity"
-          >City is required.</small
+          >Store city is required.</small
         >
       </div>
       <div class="field">
@@ -135,7 +135,7 @@
           [showClear]="true"
         ></p-dropdown>
         <small class="p-error" *ngIf="submitted && !store.storeState"
-          >State is required.</small
+          >Store state is required.</small
         >
       </div>
       <div>
