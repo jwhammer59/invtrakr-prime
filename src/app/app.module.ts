@@ -31,6 +31,13 @@ import { PaymentTypesComponent } from './components/payment-types/payment-types.
 import { DwellingsComponent } from './components/dwellings/dwellings.component';
 import { RoomsComponent } from './components/rooms/rooms.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ItemsComponent } from './components/items/items.component';
+import { AddItemComponent } from './components/items/add-item/add-item.component';
+import { EditItemComponent } from './components/items/edit-item/edit-item.component';
+import { ItemDetailComponent } from './components/items/item-detail/item-detail.component';
+import { AddDwellingComponent } from './components/dwellings/add-dwelling/add-dwelling.component';
+import { EditDwellingComponent } from './components/dwellings/edit-dwelling/edit-dwelling.component';
+import { DwellingDetailComponent } from './components/dwellings/dwelling-detail/dwelling-detail.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +50,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     DwellingsComponent,
     RoomsComponent,
     DashboardComponent,
+    ItemsComponent,
+    AddItemComponent,
+    EditItemComponent,
+    ItemDetailComponent,
+    AddDwellingComponent,
+    EditDwellingComponent,
+    DwellingDetailComponent,
   ],
   imports: [
     BrowserModule,

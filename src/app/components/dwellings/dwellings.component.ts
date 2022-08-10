@@ -3,9 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Dwelling } from 'src/app/models/Dwelling';
 import { DwellingsService } from 'src/app/services/dwellings.service';
 
-import { State } from 'src/app/models/State';
-import { STATES } from 'src/app/data/state-data';
-
 import {
   ConfirmationService,
   ConfirmEventType,
@@ -19,23 +16,7 @@ import {
   styleUrls: ['./dwellings.component.css'],
 })
 export class DwellingsComponent implements OnInit {
-  dwellingDialog: boolean = false;
-  submitted: boolean = false;
-
-  states: State[] = STATES;
-
   dwellings: Dwelling[] = [];
-
-  id?: string = '';
-
-  dwelling: Dwelling = {
-    dwellingName: '',
-    dwellingAddress1: '',
-    dwellingAddress2: '',
-    dwellingCity: '',
-    dwellingState: '',
-    dwellingZipcode: 0,
-  };
 
   constructor(
     private dwellingsService: DwellingsService,
@@ -50,37 +31,6 @@ export class DwellingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-  }
-
-  newDwelling() {
-    this.submitted = false;
-    this.dwellingDialog = true;
-  }
-
-  onSubmit(val: Dwelling, id: string) {
-    this.submitted = true;
-
-    if (this.dwelling.dwellingName.trim()) {
-      if (this.dwelling.id) {
-        this.dwellingsService.updateDwelling(val, id);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Dwelling Updated',
-          life: 3000,
-        });
-      } else {
-        this.dwellingsService.addDwelling(val);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Dwelling Added!',
-          life: 3000,
-        });
-      }
-      this.hideDialog();
-      this.resetForm();
-    }
   }
 
   deleteDwelling(id: string) {
@@ -117,26 +67,5 @@ export class DwellingsComponent implements OnInit {
         this.confirmationService.close();
       },
     });
-  }
-
-  hideDialog() {
-    this.dwellingDialog = false;
-    this.submitted = false;
-  }
-
-  editDwelling(dwelling: Dwelling) {
-    this.dwelling = { ...dwelling };
-    this.id = this.dwelling.id;
-    this.dwellingDialog = true;
-  }
-
-  resetForm() {
-    this.dwelling.id = '';
-    this.dwelling.dwellingName = '';
-    this.dwelling.dwellingAddress1 = '';
-    this.dwelling.dwellingAddress2 = '';
-    this.dwelling.dwellingCity = '';
-    this.dwelling.dwellingState = '';
-    this.dwelling.dwellingZipcode = 0;
   }
 }
