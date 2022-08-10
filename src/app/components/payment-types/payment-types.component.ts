@@ -58,7 +58,7 @@ export class PaymentTypesComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Store Updated',
+          detail: 'Payment Type Updated',
           life: 3000,
         });
       } else {
@@ -66,7 +66,7 @@ export class PaymentTypesComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Store Added!',
+          detail: 'Payment Type Added!',
           life: 3000,
         });
       }

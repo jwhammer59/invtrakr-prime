@@ -44,7 +44,18 @@ export class NavComponent implements OnInit {
           {
             label: 'Dwellings',
             icon: 'pi pi-fw pi-building',
-            routerLink: ['dwellings'],
+            items: [
+              {
+                label: 'Dwellings',
+                icon: 'pi pi-fw pi-list',
+                routerLink: ['dwellings'],
+              },
+              {
+                label: 'Add Dwelling',
+                icon: 'pi pi-fw pi-plus',
+                routerLink: ['add-dwelling'],
+              },
+            ],
           },
           {
             separator: true,
@@ -54,17 +65,17 @@ export class NavComponent implements OnInit {
             icon: 'pi pi-fw pi-cog',
             items: [
               {
-                label: 'Rooms List',
+                label: 'Rooms',
                 icon: 'pi pi-fw pi-list',
                 routerLink: ['rooms'],
               },
               {
-                label: 'Stores List',
+                label: 'Stores',
                 icon: 'pi pi-fw pi-list',
                 routerLink: ['stores'],
               },
               {
-                label: 'Payment Types List',
+                label: 'Payment Types',
                 icon: 'pi pi-fw pi-list',
                 routerLink: ['payment-types'],
               },
@@ -73,7 +84,7 @@ export class NavComponent implements OnInit {
         ];
 
         this.loggedInStatus = true;
-        this.router.navigate(['/stores']);
+        this.router.navigate(['/dashboard']);
       } else {
         this.items = [
           {
@@ -95,7 +106,7 @@ export class NavComponent implements OnInit {
       }
     });
     this.loggedInStatus = true;
-    this.router.navigate(['/stores']);
+    this.router.navigate(['/dashboard']);
   }
 
   logOut() {

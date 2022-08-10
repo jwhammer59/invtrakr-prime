@@ -1,157 +1,186 @@
 <p-toast></p-toast>
-<p-panel header="Add Dwelling" styleClass="mt-2">
-  <ng-template pTemplate="content">
-    <form
-      [formGroup]="addDwellingForm"
-      (ngSubmit)="onSubmit(addDwellingForm)"
-      novalidate
-    >
-      <!-- Beginning of Dwelling Name -->
-      <!-- End of Dwelling Name -->
+<div class="flex justify-content-center">
+  <p-panel header="Add Dwelling" [style]="{ width: '50vw' }" styleClass="mt-2">
+    <ng-template pTemplate="content">
+      <form
+        [formGroup]="addDwellingForm"
+        (ngSubmit)="onSubmit(addDwellingForm)"
+        novalidate
+      >
+        <!-- Beginning of Dwelling Name -->
+        <div class="grid p-fluid">
+          <div class="col-12">
+            <div class="field">
+              <label for="dwellingName"> Dwelling Name</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingName"
+                name="dwellingName"
+                formControlName="dwellingName"
+              />
+              <small
+                *ngIf="
+                  (addDwellingForm.controls['dwellingName'].invalid &&
+                    addDwellingForm.controls['dwellingName'].dirty) ||
+                  (addDwellingForm.invalid &&
+                    this.submitted &&
+                    addDwellingForm.controls['dwellingName'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >Dwelling name is required.</small
+              >
+            </div>
+          </div>
+        </div>
+        <!-- End of Dwelling Name -->
 
-      <!-- Beginning of Address 1 & 2 -->
-      <div class="grid p-fluid">
-        <div class="col-12 md:col-6">
-          <div class="field">
-            <label for="dwellingAddress1"> Address 1</label>
-            <input
-              class="p-inputtext-sm"
-              type="text"
-              pInputText
-              id="dwellingAddress1"
-              name="dwellingAddress1"
-              formControlName="dwellingAddress1"
-            />
-            <small
-              *ngIf="
-                (addDwellingForm.controls['dwellingAddress1'].invalid &&
-                  addDwellingForm.controls['dwellingAddress1'].dirty) ||
-                (addDwellingForm.invalid &&
-                  this.submitted &&
-                  addDwellingForm.controls['dwellingAddress1'].invalid)
-              "
-              id="username-help"
-              class="p-error"
-              >Address 1 is required.</small
-            >
+        <!-- Beginning of Address 1 & 2 -->
+        <div class="grid p-fluid">
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="dwellingAddress1"> Address 1</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingAddress1"
+                name="dwellingAddress1"
+                formControlName="dwellingAddress1"
+              />
+              <small
+                *ngIf="
+                  (addDwellingForm.controls['dwellingAddress1'].invalid &&
+                    addDwellingForm.controls['dwellingAddress1'].dirty) ||
+                  (addDwellingForm.invalid &&
+                    this.submitted &&
+                    addDwellingForm.controls['dwellingAddress1'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >Address 1 is required.</small
+              >
+            </div>
+          </div>
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="dwellingAddress2">Address 2</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingAddress2"
+                name="dwellingAddress2"
+                formControlName="dwellingAddress2"
+              />
+            </div>
           </div>
         </div>
-        <div class="col-12 md:col-6">
-          <div class="field">
-            <label for="dwellingAddress2">Address 2</label>
-            <input
-              class="p-inputtext-sm"
-              type="text"
-              pInputText
-              id="dwellingAddress2"
-              name="dwellingAddress2"
-              formControlName="dwellingAddress2"
-            />
-          </div>
-        </div>
-      </div>
-      <!-- End of Address 1 & 2 -->
+        <!-- End of Address 1 & 2 -->
 
-      <!-- Beginning of City, State & Zip -->
-      <div class="grid p-fluid">
-        <div class="col-12 md:col-4">
-          <div class="field">
-            <label for="dwellingCity"> City</label>
-            <input
-              class="p-inputtext-sm"
-              type="text"
-              pInputText
-              id="dwellingCity"
-              name="dwellingCity"
-              formControlName="dwellingCity"
-            />
-            <small
-              *ngIf="
-                (addDwellingForm.controls['dwellingCity'].invalid &&
-                  addDwellingForm.controls['dwellingCity'].dirty) ||
-                (addDwellingForm.invalid &&
-                  this.submitted &&
-                  addDwellingForm.controls['dwellingCity'].invalid)
-              "
-              id="username-help"
-              class="p-error"
-              >City is required.</small
-            >
+        <!-- Beginning of City, State & Zip -->
+        <div class="grid p-fluid">
+          <div class="col-12 md:col-4">
+            <div class="field">
+              <label for="dwellingCity"> City</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingCity"
+                name="dwellingCity"
+                formControlName="dwellingCity"
+              />
+              <small
+                *ngIf="
+                  (addDwellingForm.controls['dwellingCity'].invalid &&
+                    addDwellingForm.controls['dwellingCity'].dirty) ||
+                  (addDwellingForm.invalid &&
+                    this.submitted &&
+                    addDwellingForm.controls['dwellingCity'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >City is required.</small
+              >
+            </div>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="field">
+              <label for="dwellingState"> State</label>
+              <p-dropdown
+                class="p-inputtext-sm"
+                [options]="states"
+                name="dwellingState"
+                id="dwellingState"
+                formControlName="dwellingState"
+                placeholder="Select a State"
+                [showClear]="true"
+              ></p-dropdown>
+              <small
+                *ngIf="
+                  (addDwellingForm.controls['dwellingState'].invalid &&
+                    addDwellingForm.controls['dwellingState'].dirty) ||
+                  (addDwellingForm.invalid &&
+                    this.submitted &&
+                    addDwellingForm.controls['dwellingState'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >State is required.</small
+              >
+            </div>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="field">
+              <label for="dwellingZipcode"> Zipcode</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingZipcode"
+                name="dwellingZipcode"
+                formControlName="dwellingZipcode"
+              />
+              <small
+                *ngIf="
+                  (addDwellingForm.controls['dwellingZipcode'].invalid &&
+                    addDwellingForm.controls['dwellingZipcode'].dirty) ||
+                  (addDwellingForm.invalid &&
+                    this.submitted &&
+                    addDwellingForm.controls['dwellingZipcode'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >Zipcode is required.</small
+              >
+            </div>
           </div>
         </div>
-        <div class="col-12 md:col-4">
-          <div class="field">
-            <label for="dwellingState"> State</label>
-            <p-dropdown
-              class="p-inputtext-sm"
-              [options]="states"
-              name="dwellingState"
-              id="dwellingState"
-              formControlName="dwellingState"
-              placeholder="Select a State"
-              [showClear]="true"
-            ></p-dropdown>
-            <small
-              *ngIf="
-                (addDwellingForm.controls['dwellingState'].invalid &&
-                  addDwellingForm.controls['dwellingState'].dirty) ||
-                (addDwellingForm.invalid &&
-                  this.submitted &&
-                  addDwellingForm.controls['dwellingState'].invalid)
-              "
-              id="username-help"
-              class="p-error"
-              >State is required.</small
-            >
-          </div>
-        </div>
-        <div class="col-12 md:col-4">
-          <div class="field">
-            <label for="dwellingZipcode"> Zipcode</label>
-            <input
-              class="p-inputtext-sm"
-              type="text"
-              pInputText
-              id="dwellingZipcode"
-              name="dwellingZipcode"
-              formControlName="dwellingZipcode"
-            />
-            <small
-              *ngIf="
-                (addDwellingForm.controls['dwellingZipcode'].invalid &&
-                  addDwellingForm.controls['dwellingZipcode'].dirty) ||
-                (addDwellingForm.invalid &&
-                  this.submitted &&
-                  addDwellingForm.controls['dwellingZipcode'].invalid)
-              "
-              id="username-help"
-              class="p-error"
-              >Zipcode is required.</small
-            >
-          </div>
-        </div>
-      </div>
 
-      <!-- End of City, State & Zip -->
+        <!-- End of City, State & Zip -->
 
-      <!-- Beginning of Buttons -->
-      <div class="flex justify-content-between">
-        <button
-          pButton
-          class="p-button-outlined p-button-success"
-          label="Submit"
-          icon="pi pi-check"
-          value="submit"
-        ></button>
-        <button
-          pButton
-          class="p-button-outlined p-button-warning"
-          label="Cancel"
-          icon="pi pi-times"
-          routerLink="/dwellings"
-        ></button>
-      </div>
-      <!-- End of Buttons -->
-    </form>
-  </ng-template>
-</p-panel>
+        <!-- Beginning of Buttons -->
+        <div class="flex justify-content-between">
+          <button
+            pButton
+            class="p-button-outlined p-button-success"
+            label="Submit"
+            icon="pi pi-check"
+            value="submit"
+          ></button>
+          <button
+            pButton
+            class="p-button-outlined p-button-warning"
+            label="Cancel"
+            icon="pi pi-times"
+            routerLink="/dwellings"
+          ></button>
+        </div>
+        <!-- End of Buttons -->
+      </form>
+    </ng-template>
+  </p-panel>
+</div>
