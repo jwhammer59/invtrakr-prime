@@ -63,8 +63,8 @@ export class ItemsService {
     this.itemDoc.update(item);
   }
 
-  deleteItem(item: Item['id']) {
-    this.itemDoc = this.afs.doc(`${this.dbPath}/${item}`);
+  deleteItem(id: string) {
+    this.itemDoc = this.afs.doc(`${this.dbPath}/${id}`);
     this.itemDoc.delete();
   }
 }

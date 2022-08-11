@@ -1,6 +1,7 @@
 export class Item {
   id?: string;
-  itemOwner: string = '';
+  itemOwnerID: string = '';
+  itemDwellingName: string = '';
   itemName: string = '';
   itemDesc: string = '';
   itemMfg: string = '';
@@ -12,12 +13,9 @@ export class Item {
   itemPurchasePrice: string = '';
   itemVendor: string = '';
   itemPaymentType: string = '';
-  itemDwelling: { dwellingName: string; dwellingCity: string } = {
-    dwellingName: '',
-    dwellingCity: '',
-  };
   itemRoom: { roomName: string; roomLevel: string } = {
     roomName: '',
     roomLevel: '',
   };
+  itemNote: string = '';
 }
