@@ -19,6 +19,8 @@ import { PaymentTypesService } from 'src/app/services/payment-types.service';
 
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
@@ -29,9 +31,17 @@ export class AddItemComponent implements OnInit {
 
   addItemForm!: FormGroup;
 
-  paymentTypes: PaymentType[] = [];
-  rooms: Room[] = [];
-  stores: Store[] = [];
+  paymentTypes$!: Observable<PaymentType[]>;
+  paymentTypesArray: PaymentType[] = [];
+  paymentTypesNameArray: String[] = [];
+
+  rooms$!: Observable<Room[]>;
+  roomsArray: Room[] = [];
+  roomsNameArray: String[] = [];
+
+  stores$!: Observable<Store[]>;
+  storesArray: Store[] = [];
+  storesNameArray: String[] = [];
 
   id: string = '';
   dwelling: Dwelling = {
@@ -65,11 +75,11 @@ export class AddItemComponent implements OnInit {
       itemSerialNum: '',
       itemQty: [0, Validators.required],
       itemExtWarranty: false,
-      itemPurchaseDate: '',
+      itemPurchaseDate: ['', Validators.required],
       itemPurchasePrice: '',
       itemVendor: '',
       itemPaymentType: '',
-      itemRoom: [{ roomName: '', roomLevel: '' }, Validators.required],
+      itemRoom: ['', Validators.required],
       itemNote: '',
     });
   }
@@ -80,20 +90,59 @@ export class AddItemComponent implements OnInit {
     this.dwellingsService
       .getDwelling(this.id)
       .subscribe((dwelling) => (this.dwelling = dwelling));
-    this.roomsService.getRooms().subscribe((rooms) => (this.rooms = rooms));
-    this.paymentTypesService
-      .getPaymentTypes()
-      .subscribe((paymentTypes) => (this.paymentTypes = paymentTypes));
-    this.storesService
-      .getStores()
-      .subscribe((stores) => (this.stores = stores));
+
+    this.paymentTypes$ = this.paymentTypesService.getPaymentTypes();
+    this.paymentTypes$.subscribe((data) => {
+      this.paymentTypesArray = data;
+      this.getPaymentTypesName(this.paymentTypesArray);
+    });
+
+    this.rooms$ = this.roomsService.getRooms();
+    this.rooms$.subscribe((data) => {
+      this.roomsArray = data;
+      this.getRoomsName(this.roomsArray);
+    });
+
+    this.stores$ = this.storesService.getStores();
+    this.stores$.subscribe((data) => {
+      this.storesArray = data;
+      this.getStoresName(this.storesArray);
+    });
+  }
+
+  getPaymentTypesName(data: PaymentType[]) {
+    this.paymentTypesNameArray = [];
+    data.map((el) => {
+      let pTypeToStore = '';
+      pTypeToStore = el.paymentTypeName;
+      this.paymentTypesNameArray.push(pTypeToStore);
+    });
+  }
+
+  getRoomsName(data: Room[]) {
+    this.roomsNameArray = [];
+    data.map((el) => {
+      let roomToStore = '';
+      roomToStore = el.roomName;
+      this.roomsNameArray.push(roomToStore);
+    });
+  }
+
+  getStoresName(data: Store[]) {
+    this.storesNameArray = [];
+    data.map((el) => {
+      let storeToStore = '';
+      storeToStore = el.storeName;
+      this.storesNameArray.push(storeToStore);
+    });
   }
 
   loadDwellingNameAndId() {
     this.addItemForm.controls['itemDwellingName'].patchValue(
       this.dwelling.dwellingName
     );
-    this.addItemForm.controls['itemOwnerID'].patchValue(this.dwelling.id);
+    this.addItemForm.controls['itemOwnerID'].patchValue(this.id);
+    console.log(this.id, this.dwelling.dwellingName);
   }
 
   onSubmit({ value, valid }: { value: Item; valid: boolean }) {

@@ -1,87 +1,91 @@
 <p-toast></p-toast>
-<div class="card mt-4">
-  <p-toolbar>
-    <ng-template pTemplate="left">
-      <button
-        pButton
-        pRipple
-        label="Add Store"
-        icon="pi pi-plus"
-        class="p-button-success p-button-outlined p-mr-2"
-        (click)="newStore()"
-      ></button>
-    </ng-template>
-  </p-toolbar>
-  <p-table
-    #dt
-    [value]="stores"
-    [rows]="5"
-    [paginator]="true"
-    [globalFilterFields]="['storeName', 'storeCity', 'storeState']"
-    [rowHover]="true"
-    dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 25, 50]"
-  >
-    <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        <h3 class="m-0">Manage Stores</h3>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="storeName">
-          Store Name <p-sortIcon field="storeName"></p-sortIcon>
-        </th>
-        <th pSortableColumn="storeCity">
-          Store City <p-sortIcon field="storeCity"></p-sortIcon>
-        </th>
-        <th pSortableColumn="storeState">
-          Store State <p-sortIcon field="storeState"></p-sortIcon>
-        </th>
-        <th></th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-store | async>
-      <tr>
-        <td>{{ store.storeName }}</td>
-        <td>{{ store.storeCity }}</td>
-        <td>{{ store.storeState }}</td>
-        <td class="flex">
+<div class="flex justify-content-center">
+  <div [ngStyle]="{ width: '75vw' }">
+    <div class="card mt-4">
+      <p-toolbar>
+        <ng-template pTemplate="left">
           <button
             pButton
             pRipple
-            icon="pi pi-pencil"
-            class="p-button-info p-button-outlined mr-2"
-            pTooltip="Edit Store"
-            tooltipPosition="bottom"
-            (click)="editStore(store)"
+            label="Add Store"
+            icon="pi pi-plus"
+            class="p-button-success p-button-raised p-mr-2"
+            (click)="newStore()"
           ></button>
-          <button
-            pButton
-            pRipple
-            icon="pi pi-trash"
-            class="p-button-warning p-button-outlined"
-            pTooltip="Delete Store"
-            tooltipPosition="bottom"
-            (click)="deleteStore(store.id)"
-          ></button>
-        </td>
-      </tr>
+        </ng-template>
+      </p-toolbar>
+      <p-table
+        #dt
+        [value]="stores"
+        [rows]="5"
+        [paginator]="true"
+        [globalFilterFields]="['storeName', 'storeCity', 'storeState']"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <h3 class="m-0">Manage Stores</h3>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="storeName">
+              Store Name <p-sortIcon field="storeName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="storeCity">
+              Store City <p-sortIcon field="storeCity"></p-sortIcon>
+            </th>
+            <th pSortableColumn="storeState">
+              Store State <p-sortIcon field="storeState"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-store | async>
+          <tr>
+            <td>{{ store.storeName }}</td>
+            <td>{{ store.storeCity }}</td>
+            <td>{{ store.storeState }}</td>
+            <td class="flex">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-info p-button-raised mr-2"
+                pTooltip="Edit Store"
+                tooltipPosition="bottom"
+                (click)="editStore(store)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-warning p-button-raised"
+                pTooltip="Delete Store"
+                tooltipPosition="bottom"
+                (click)="deleteStore(store.id)"
+              ></button>
+            </td>
+          </tr>
 
-      <p-confirmDialog
-        [style]="{ width: '50vw' }"
-        [baseZIndex]="10000"
-        rejectButtonStyleClass="p-button-text"
-      ></p-confirmDialog>
-    </ng-template>
-    <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-        In total there are {{ stores ? stores.length : 0 }} stores.
-      </div>
-    </ng-template>
-  </p-table>
+          <p-confirmDialog
+            [style]="{ width: '50vw' }"
+            [baseZIndex]="10000"
+            rejectButtonStyleClass="p-button-text"
+          ></p-confirmDialog>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+            In total there are {{ stores ? stores.length : 0 }} stores.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
 </div>
 <p-dialog
   [(visible)]="storeDialog"

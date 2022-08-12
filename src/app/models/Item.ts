@@ -13,9 +13,6 @@ export class Item {
   itemPurchasePrice: string = '';
   itemVendor: string = '';
   itemPaymentType: string = '';
-  itemRoom: { roomName: string; roomLevel: string } = {
-    roomName: '',
-    roomLevel: '',
-  };
+  itemRoom: string = '';
   itemNote: string = '';
 }
