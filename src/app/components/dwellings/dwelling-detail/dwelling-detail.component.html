@@ -1,1 +1,44 @@
-<p>dwelling-detail works!</p>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <i class="pi pi-builiding" style="font-size: 1.5rem"></i>
+    <h3>Dwelling Details</h3>
+  </div>
+  <div class="p-toolbar-group-right">
+    <p-button
+      icon="pi pi-arrow-left"
+      styleClass="p-button-raised mr-1"
+      pTooltip="Back to Dwellings"
+      tooltipPosition="left"
+      routerLink="/dwellings"
+    ></p-button>
+    <p-button
+      icon="pi pi-pencil"
+      styleClass="p-button-raised p-button-info"
+      pTooltip="Edit Dwelling"
+      tooltipPosition="left"
+      routerLink="/edit-dwelling/{{ dwelling.id }}"
+    ></p-button>
+  </div>
+</p-toolbar>
+<div class="flex justify-content-center">
+  <p-card
+    [style]="{
+      width: '980px',
+      'margin-top': '1rem',
+      'background-color': '#eeeeee'
+    }"
+    styleClass="p-card-shadow"
+  >
+    <ng-template pTemplate="title">
+      {{ dwelling.dwellingName }}
+    </ng-template>
+
+    <ng-template pTemplate="content">
+      <p>Address 1: {{ dwelling.dwellingAddress1 }}</p>
+      <p>Address 2: {{ dwelling.dwellingAddress2 }}</p>
+      <p>City: {{ dwelling.dwellingCity }}</p>
+      <p>State: {{ dwelling.dwellingState }}</p>
+      <p>Zipcode: {{ dwelling.dwellingZipcode }}</p>
+    </ng-template>
+  </p-card>
+</div>

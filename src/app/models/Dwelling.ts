@@ -5,5 +5,5 @@ export interface Dwelling {
   dwellingAddress2: string;
   dwellingCity: string;
   dwellingState: string;
-  dwellingZipcode: number;
+  dwellingZipcode: string;
 }

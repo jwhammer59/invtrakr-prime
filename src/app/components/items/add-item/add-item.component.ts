@@ -50,7 +50,7 @@ export class AddItemComponent implements OnInit {
     dwellingAddress2: '',
     dwellingCity: '',
     dwellingState: '',
-    dwellingZipcode: 0,
+    dwellingZipcode: '',
   };
 
   constructor(
