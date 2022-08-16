@@ -73,7 +73,7 @@ export class AddItemComponent implements OnInit {
       itemMfg: '',
       itemModelNum: '',
       itemSerialNum: '',
-      itemQty: [0, Validators.required],
+      itemQty: ['', Validators.required],
       itemExtWarranty: false,
       itemPurchaseDate: ['', Validators.required],
       itemPurchasePrice: '',

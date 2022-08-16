@@ -7,7 +7,7 @@ export class Item {
   itemMfg: string = '';
   itemModelNum: string = '';
   itemSerialNum: string = '';
-  itemQty: number = 0;
+  itemQty: string = '';
   itemExtWarranty: boolean = false;
   itemPurchaseDate: string = '';
   itemPurchasePrice: string = '';

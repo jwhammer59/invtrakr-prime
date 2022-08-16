@@ -1,1 +1,186 @@
-<p>edit-dwelling works!</p>
+<p-toast></p-toast>
+<div class="flex justify-content-center">
+  <p-panel header="Edit Dwelling" [style]="{ width: '50vw' }" styleClass="mt-2">
+    <ng-template pTemplate="content">
+      <form
+        [formGroup]="editDwellingForm"
+        (ngSubmit)="onSubmit(editDwellingForm)"
+        novalidate
+      >
+        <!-- Beginning of Dwelling Name -->
+        <div class="grid p-fluid">
+          <div class="col-12">
+            <div class="field">
+              <label for="dwellingName"> Dwelling Name</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingName"
+                name="dwellingName"
+                formControlName="dwellingName"
+              />
+              <small
+                *ngIf="
+                  (editDwellingForm.controls['dwellingName'].invalid &&
+                    editDwellingForm.controls['dwellingName'].dirty) ||
+                  (editDwellingForm.invalid &&
+                    this.submitted &&
+                    editDwellingForm.controls['dwellingName'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >Dwelling name is required.</small
+              >
+            </div>
+          </div>
+        </div>
+        <!-- End of Dwelling Name -->
+
+        <!-- Beginning of Address 1 & 2 -->
+        <div class="grid p-fluid">
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="dwellingAddress1"> Address 1</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingAddress1"
+                name="dwellingAddress1"
+                formControlName="dwellingAddress1"
+              />
+              <small
+                *ngIf="
+                  (editDwellingForm.controls['dwellingAddress1'].invalid &&
+                    editDwellingForm.controls['dwellingAddress1'].dirty) ||
+                  (editDwellingForm.invalid &&
+                    this.submitted &&
+                    editDwellingForm.controls['dwellingAddress1'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >Address 1 is required.</small
+              >
+            </div>
+          </div>
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="dwellingAddress2">Address 2</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingAddress2"
+                name="dwellingAddress2"
+                formControlName="dwellingAddress2"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- End of Address 1 & 2 -->
+
+        <!-- Beginning of City, State & Zip -->
+        <div class="grid p-fluid">
+          <div class="col-12 md:col-4">
+            <div class="field">
+              <label for="dwellingCity"> City</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingCity"
+                name="dwellingCity"
+                formControlName="dwellingCity"
+              />
+              <small
+                *ngIf="
+                  (editDwellingForm.controls['dwellingCity'].invalid &&
+                    editDwellingForm.controls['dwellingCity'].dirty) ||
+                  (editDwellingForm.invalid &&
+                    this.submitted &&
+                    editDwellingForm.controls['dwellingCity'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >City is required.</small
+              >
+            </div>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="field">
+              <label for="dwellingState"> State</label>
+              <p-dropdown
+                class="p-inputtext-sm"
+                [options]="states"
+                name="dwellingState"
+                id="dwellingState"
+                formControlName="dwellingState"
+                placeholder="Select a State"
+                [showClear]="true"
+              ></p-dropdown>
+              <small
+                *ngIf="
+                  (editDwellingForm.controls['dwellingState'].invalid &&
+                    editDwellingForm.controls['dwellingState'].dirty) ||
+                  (editDwellingForm.invalid &&
+                    this.submitted &&
+                    editDwellingForm.controls['dwellingState'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >State is required.</small
+              >
+            </div>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="field">
+              <label for="dwellingZipcode"> Zipcode</label>
+              <input
+                class="p-inputtext-sm"
+                type="text"
+                pInputText
+                id="dwellingZipcode"
+                name="dwellingZipcode"
+                formControlName="dwellingZipcode"
+              />
+              <small
+                *ngIf="
+                  (editDwellingForm.controls['dwellingZipcode'].invalid &&
+                    editDwellingForm.controls['dwellingZipcode'].dirty) ||
+                  (editDwellingForm.invalid &&
+                    this.submitted &&
+                    editDwellingForm.controls['dwellingZipcode'].invalid)
+                "
+                id="username-help"
+                class="p-error"
+                >Zipcode is required.</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- End of City, State & Zip -->
+
+        <!-- Beginning of Buttons -->
+        <div class="flex justify-content-between">
+          <button
+            pButton
+            class="p-button-outlined p-button-success"
+            label="Update"
+            icon="pi pi-check"
+            value="submit"
+          ></button>
+          <button
+            pButton
+            class="p-button-outlined p-button-warning"
+            label="Cancel"
+            icon="pi pi-times"
+            routerLink="/dwellings"
+          ></button>
+        </div>
+        <!-- End of Buttons -->
+      </form>
+    </ng-template>
+  </p-panel>
+</div>

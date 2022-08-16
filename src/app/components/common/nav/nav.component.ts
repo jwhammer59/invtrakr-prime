@@ -44,18 +44,7 @@ export class NavComponent implements OnInit {
           {
             label: 'Dwellings',
             icon: 'pi pi-fw pi-building',
-            items: [
-              {
-                label: 'Dwellings',
-                icon: 'pi pi-fw pi-list',
-                routerLink: ['dwellings'],
-              },
-              {
-                label: 'Add Dwelling',
-                icon: 'pi pi-fw pi-plus',
-                routerLink: ['add-dwelling'],
-              },
-            ],
+            routerLink: ['dwellings'],
           },
           {
             separator: true,

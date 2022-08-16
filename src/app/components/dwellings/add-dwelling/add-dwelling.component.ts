@@ -9,7 +9,6 @@ import { State } from 'src/app/models/State';
 import { STATES } from 'src/app/data/state-data';
 
 import { MessageService, PrimeNGConfig } from 'primeng/api';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-dwelling',

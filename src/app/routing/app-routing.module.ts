@@ -1,3 +1,4 @@
+import { compileClassMetadata } from '@angular/compiler';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../components/auth/auth-guard';
@@ -9,6 +10,8 @@ import { DwellingDetailComponent } from '../components/dwellings/dwelling-detail
 import { DwellingsComponent } from '../components/dwellings/dwellings.component';
 import { EditDwellingComponent } from '../components/dwellings/edit-dwelling/edit-dwelling.component';
 import { AddItemComponent } from '../components/items/add-item/add-item.component';
+import { EditItemComponent } from '../components/items/edit-item/edit-item.component';
+import { ItemDetailComponent } from '../components/items/item-detail/item-detail.component';
 import { ItemsComponent } from '../components/items/items.component';
 import { PaymentTypesComponent } from '../components/payment-types/payment-types.component';
 import { RoomsComponent } from '../components/rooms/rooms.component';
@@ -30,6 +33,16 @@ const routes: Routes = [
   {
     path: 'add-item/:id',
     component: AddItemComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-item/:id',
+    component: EditItemComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'item-detail/:id',
+    component: ItemDetailComponent,
     canActivate: [AuthGuard],
   },
   {

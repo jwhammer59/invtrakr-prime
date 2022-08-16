@@ -6,7 +6,7 @@
         pButton
         pRipple
         label="Add Dwelling"
-        icon="pi pi-plus"
+        icon="pi pi-building"
         class="p-button-success p-button-raised p-mr-2"
         routerLink="/add-dwelling"
       ></button>
@@ -26,7 +26,10 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-        <h3 class="m-0">Manage Dwellings</h3>
+        <h3 class="m-0">
+          <i class="pi pi-building mr-1" style="font-size: 1.5rem"></i>
+          Manage Dwellings
+        </h3>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -73,7 +76,7 @@
             pButton
             pRipple
             icon="pi pi-trash"
-            class="p-button-warning p-button-raised mr-1"
+            class="p-button-danger p-button-raised mr-1"
             pTooltip="Delete Dwelling"
             tooltipPosition="bottom"
             (click)="deleteDwelling(dwelling.id)"
@@ -83,7 +86,8 @@
             class="p-button-raised p-button-success mr-1"
             pButton
             pRipple
-            icon="pi pi-plus"
+            label="Add Item"
+            icon="pi pi-tag"
             pTooltip="Add Item"
             tooltipPosition="bottom"
             routerLink="/add-item/{{ dwelling.id }}"
@@ -99,7 +103,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-        In total there are {{ dwellings ? dwellings.length : 0 }} stores.
+        In total there are {{ dwellings ? dwellings.length : 0 }} dwellings.
       </div>
     </ng-template>
     <ng-template pTemplate="emptymessage">

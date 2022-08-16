@@ -14,6 +14,7 @@
           ></button>
         </ng-template>
       </p-toolbar>
+
       <p-table
         #dt
         [value]="rooms"
@@ -60,7 +61,7 @@
                 pButton
                 pRipple
                 icon="pi pi-trash"
-                class="p-button-warning p-button-raised"
+                class="p-button-danger p-button-raised"
                 pTooltip="Delete Room"
                 tooltipPosition="bottom"
                 (click)="deleteRoom(room.id)"
