@@ -1,1 +1,105 @@
-<p>item-detail works!</p>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <i class="pi pi-builiding" style="font-size: 1.5rem"></i>
+    <h3>Item Details</h3>
+  </div>
+  <div class="p-toolbar-group-right">
+    <p-button
+      icon="pi pi-arrow-left"
+      styleClass="p-button-raised mr-1"
+      pTooltip="Back to Items"
+      tooltipPosition="left"
+      routerLink="/items"
+    ></p-button>
+    <p-button
+      icon="pi pi-pencil"
+      styleClass="p-button-raised p-button-info"
+      pTooltip="Edit Item"
+      tooltipPosition="left"
+      routerLink="/edit-item/{{ item.id }}"
+    ></p-button>
+  </div>
+</p-toolbar>
+<div class="flex justify-content-center">
+  <p-panel
+    header="{{ item.itemName }}"
+    [style]="{
+      width: '70vw',
+      'margin-top': '1rem',
+      'background-color': '#eeeeee'
+    }"
+    styleClass="p-card-shadow"
+  >
+    <ng-template pTemplate="icons">
+      <span class="p-panel-title pr-1">Location: </span>
+      {{ item.itemDwellingName }}
+    </ng-template>
+    <ng-template pTemplate="content">
+      <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-info-circle pr-2"></i>
+            <span>Item Info</span>
+          </ng-template>
+          <p><span class="field-desc">Name:</span>{{ item.itemName }}</p>
+          <p><span class="field-desc">Description:</span>{{ item.itemDesc }}</p>
+          <p><span class="field-desc">Item Notes:</span>{{ item.itemNote }}</p>
+        </p-tabPanel>
+        <p-tabPanel header="Header II">
+          <ng-template pTemplate="header">
+            <i class="pi pi-cog pr-2"></i>
+            <span>Item Mfg Info</span>
+          </ng-template>
+          <p>
+            <span class="field-desc">Item Manufacturer:</span>{{ item.itemMfg }}
+          </p>
+          <p>
+            <span class="field-desc">Item Model Number:</span
+            >{{ item.itemModelNum }}
+          </p>
+          <p>
+            <span class="field-desc">Item Serial Number:</span
+            >{{ item.itemSerialNum }}
+          </p>
+          <p>
+            <span class="field-desc">Item Extended Warranty?:</span>
+            <p-checkbox
+              [(ngModel)]="item.itemExtWarranty"
+              [binary]="true"
+              inputId="binary"
+              [disabled]="true"
+            ></p-checkbox>
+          </p>
+        </p-tabPanel>
+        <p-tabPanel header="Header III">
+          <ng-template pTemplate="header">
+            <i class="pi pi-wallet pr-2"></i>
+            <span>Item Pricing Info</span>
+          </ng-template>
+          <p><span class="field-desc">Store:</span>{{ item.itemVendor }}</p>
+          <p>
+            <span class="field-desc">Purchase Date:</span
+            >{{ item.itemPurchaseDate }}
+          </p>
+          <p>
+            <span class="field-desc">Purchase Price:</span
+            >{{ item.itemPurchasePrice | currency }}
+          </p>
+          <p>
+            <span class="field-desc">Purchase Payment Type:</span
+            >{{ item.itemPaymentType }}
+          </p>
+        </p-tabPanel>
+      </p-tabView>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-between">
+        <div>
+          <span class="field-desc">Location Room: </span>{{ item.itemRoom }}
+        </div>
+        <div><span class="field-desc">Item Qty: </span>{{ item.itemQty }}</div>
+      </div>
+    </ng-template>
+  </p-panel>
+</div>

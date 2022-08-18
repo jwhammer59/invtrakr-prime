@@ -1,90 +1,95 @@
 <p-toast></p-toast>
 <div class="flex justify-content-center">
-  <div [ngStyle]="{ width: '75vw' }">
-    <div class="card mt-4">
-      <p-toolbar>
-        <ng-template pTemplate="left">
-          <button
-            pButton
-            pRipple
-            label="Add Payment Type"
-            icon="pi pi-plus"
-            class="p-button-success p-button-raised p-mr-2"
-            (click)="newPaymentType()"
-          ></button>
-        </ng-template>
-      </p-toolbar>
-      <p-table
-        #dt
-        [value]="paymentTypes"
-        [rows]="5"
-        [paginator]="true"
-        [globalFilterFields]="['paymentTypeName', 'paymentTypeIssuedBy']"
-        [rowHover]="true"
-        dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]"
-      >
-        <ng-template pTemplate="caption">
-          <div class="flex align-items-center justify-content-between">
-            <h3 class="m-0">Manage Payment Types</h3>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="paymentTypeName">
-              Payment Type Name
-              <p-sortIcon field="paymentTypeName"></p-sortIcon>
-            </th>
-            <th pSortableColumn="paymentTypeIssuedBy">
-              Payment Type Issued By
-              <p-sortIcon field="paymentTypeIssuedBy"></p-sortIcon>
-            </th>
-            <th></th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-paymentType | async>
-          <tr>
-            <td>{{ paymentType.paymentTypeName }}</td>
-            <td>{{ paymentType.paymentTypeIssuedBy }}</td>
-            <td class="flex">
-              <button
-                pButton
-                pRipple
-                icon="pi pi-pencil"
-                class="p-button-info p-button-raised mr-2"
-                pTooltip="Edit"
-                tooltipPosition="bottom"
-                (click)="editPaymentType(paymentType)"
-              ></button>
-              <button
-                pButton
-                pRipple
-                icon="pi pi-trash"
-                class="p-button-danger p-button-raised"
-                pTooltip="Delete"
-                tooltipPosition="bottom"
-                (click)="deletePaymentType(paymentType.id)"
-              ></button>
-            </td>
-          </tr>
+  <p-card
+    [style]="{
+      width: '75vw',
+      'margin-top': '1rem',
+      'background-color': '#eeeeee'
+    }"
+    styleClass="p-card-shadow"
+  >
+    <p-toolbar>
+      <ng-template pTemplate="left">
+        <button
+          pButton
+          pRipple
+          label="Add Payment Type"
+          icon="pi pi-plus"
+          class="p-button-success p-button-raised p-mr-2"
+          (click)="newPaymentType()"
+        ></button>
+      </ng-template>
+    </p-toolbar>
+    <p-table
+      #dt
+      [value]="paymentTypes"
+      [rows]="5"
+      [paginator]="true"
+      [globalFilterFields]="['paymentTypeName', 'paymentTypeIssuedBy']"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h3 class="m-0">Manage Payment Types</h3>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="paymentTypeName">
+            Payment Type Name
+            <p-sortIcon field="paymentTypeName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="paymentTypeIssuedBy">
+            Payment Type Issued By
+            <p-sortIcon field="paymentTypeIssuedBy"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-paymentType | async>
+        <tr>
+          <td>{{ paymentType.paymentTypeName }}</td>
+          <td>{{ paymentType.paymentTypeIssuedBy }}</td>
+          <td class="flex">
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-info p-button-raised mr-2"
+              pTooltip="Edit"
+              tooltipPosition="bottom"
+              (click)="editPaymentType(paymentType)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-danger p-button-raised"
+              pTooltip="Delete"
+              tooltipPosition="bottom"
+              (click)="deletePaymentType(paymentType.id)"
+            ></button>
+          </td>
+        </tr>
 
-          <p-confirmDialog
-            [style]="{ width: '50vw' }"
-            [baseZIndex]="10000"
-            rejectButtonStyleClass="p-button-text"
-          ></p-confirmDialog>
-        </ng-template>
-        <ng-template pTemplate="summary">
-          <div class="flex align-items-center justify-content-between">
-            In total there are
-            {{ paymentTypes ? paymentTypes.length : 0 }} payment types.
-          </div>
-        </ng-template>
-      </p-table>
-    </div>
-  </div>
+        <p-confirmDialog
+          [style]="{ width: '50vw' }"
+          [baseZIndex]="10000"
+          rejectButtonStyleClass="p-button-text"
+        ></p-confirmDialog>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          In total there are
+          {{ paymentTypes ? paymentTypes.length : 0 }} payment types.
+        </div>
+      </ng-template>
+    </p-table>
+  </p-card>
 </div>
 <p-dialog
   [(visible)]="paymentTypeDialog"

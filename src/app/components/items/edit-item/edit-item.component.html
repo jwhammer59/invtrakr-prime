@@ -1,1 +1,318 @@
-<p>edit-item works!</p>
+<p-toast></p-toast>
+<div #bodyDiv class="flex justify-content-center">
+  <div [ngStyle]="{ width: '75vw' }">
+    <p-panel header="Edit Item" styleClass="mt-2">
+      <ng-template pTemplate="content">
+        <form
+          [formGroup]="editItemForm"
+          (ngSubmit)="onSubmit(editItemForm)"
+          novalidate
+        >
+          <!-- Beginning of Dwelling Name, Item Name & Qty-->
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemDwellingName">Item Dwelling Location</label>
+                <input
+                  type="text"
+                  pInputText
+                  id="itemDwellingName"
+                  formControlName="itemDwellingName"
+                  [disabled]="true"
+                />
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemName"> Item Name</label>
+                <input
+                  class="p-inputtext-sm"
+                  type="text"
+                  pInputText
+                  id="itemName"
+                  name="itemName"
+                  formControlName="itemName"
+                  autofocus
+                />
+                <small
+                  *ngIf="
+                    (editItemForm.controls['itemName'].invalid &&
+                      editItemForm.controls['itemName'].dirty) ||
+                    (editItemForm.invalid &&
+                      this.submitted &&
+                      editItemForm.controls['itemName'].invalid)
+                  "
+                  id="username-help"
+                  class="p-error"
+                  >Item name is required.</small
+                >
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemQty">Item Qty</label>
+                <p-inputMask
+                  name="itemQty"
+                  mask="9"
+                  slotChar="#"
+                  class="p-inputtext-sm"
+                  inputId="itemQty"
+                  formControlName="itemQty"
+                >
+                </p-inputMask>
+                <small
+                  *ngIf="
+                    (editItemForm.controls['itemQty'].invalid &&
+                      editItemForm.controls['itemQty'].dirty) ||
+                    (editItemForm.invalid &&
+                      this.submitted &&
+                      editItemForm.controls['itemQty'].invalid)
+                  "
+                  id="username-help"
+                  class="p-error"
+                  >Item quantity is required.</small
+                >
+              </div>
+            </div>
+          </div>
+          <!-- End of Dwelling Name, Item Name & Qty-->
+
+          <!-- Beginning of Item Description-->
+          <div class="grid p-fluid">
+            <div class="col-12">
+              <div class="field">
+                <label for="itemDesc"> Item Description</label>
+                <input
+                  class="p-inputtext-sm"
+                  type="text"
+                  pInputText
+                  id="itemDesc"
+                  name="itemDesc"
+                  formControlName="itemDesc"
+                />
+                <small
+                  *ngIf="
+                    (editItemForm.controls['itemDesc'].invalid &&
+                      editItemForm.controls['itemDesc'].dirty) ||
+                    (editItemForm.invalid &&
+                      this.submitted &&
+                      editItemForm.controls['itemDesc'].invalid)
+                  "
+                  id="username-help"
+                  class="p-error"
+                  >Item name is required.</small
+                >
+              </div>
+            </div>
+          </div>
+          <!-- End of Item Description-->
+
+          <!-- Beginning of Item Mfg, Model & Serial #-->
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemMfg"> Item Manufacturer</label>
+                <input
+                  class="p-inputtext-sm"
+                  type="text"
+                  pInputText
+                  id="itemMfg"
+                  name="itemMfg"
+                  formControlName="itemMfg"
+                />
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemModelNum"> Item Model</label>
+                <input
+                  class="p-inputtext-sm"
+                  type="text"
+                  pInputText
+                  id="itemModelNum"
+                  name="itemModelNum"
+                  formControlName="itemModelNum"
+                />
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemSerialNum"> Item Serial #</label>
+                <input
+                  class="p-inputtext-sm"
+                  type="text"
+                  pInputText
+                  id="itemSerialNum"
+                  name="itemSerialNum"
+                  formControlName="itemSerialNum"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- End of Item Mfg, Model & Serial #-->
+
+          <!-- Beginning of Item Purchase Date, Price & Warranty-->
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemPurchaseDate"> Item Purchase Date</label>
+                <p-calendar
+                  [showIcon]="true"
+                  inputId="itemPurchaseDate"
+                  name="itemPurchaseDate"
+                  [appendTo]="bodyDiv"
+                  dataType="string"
+                  formControlName="itemPurchaseDate"
+                ></p-calendar>
+                <small
+                  *ngIf="
+                    (editItemForm.controls['itemPurchaseDate'].invalid &&
+                      editItemForm.controls['itemPurchaseDate'].dirty) ||
+                    (editItemForm.invalid &&
+                      this.submitted &&
+                      editItemForm.controls['itemPurchaseDate'].invalid)
+                  "
+                  id="username-help"
+                  class="p-error"
+                  >Purchase date is required.</small
+                >
+              </div>
+            </div>
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemPurchasePrice">Item Purchase Price</label>
+                <div class="p-inputgroup">
+                  <span class="p-inputgroup-addon">$</span>
+                  <input
+                    type="text"
+                    pInputText
+                    inputId="itemPurchasePrice"
+                    name="itemPurchasePrice"
+                    formControlName="itemPurchasePrice"
+                    placeholder="Price"
+                  />
+                  <span class="p-inputgroup-addon">.00</span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-column justify-content-center col-12 md:col-4"
+            >
+              <div class="flex justify-content-center">
+                <div class="field-checkbox">
+                  <p-checkbox
+                    formControlName="itemExtWarranty"
+                    [binary]="true"
+                    inputId="itemExtWarranty"
+                    name="itemExtWarranty"
+                  ></p-checkbox>
+                  <label for="itemExtWarranty">Extended Warranty?</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of Item Purchase Date, Price & Warranty-->
+
+          <!-- Beginning of Item Vendor & Payment Type-->
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-6">
+              <div class="field">
+                <label for="itemVendor"> Store</label>
+                <p-dropdown
+                  class="p-inputtext-sm"
+                  [options]="storesNameArray"
+                  name="itemVendor"
+                  id="itemVendor"
+                  label="store.storeName"
+                  value="store.storeName"
+                  formControlName="itemVendor"
+                  placeholder="Select store"
+                  [showClear]="true"
+                ></p-dropdown>
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="field">
+                <label for="itemPaymentType"> Payment Type</label>
+                <p-dropdown
+                  class="p-inputtext-sm"
+                  [options]="paymentTypesNameArray"
+                  name="itemPaymentType"
+                  id="itemPaymentType"
+                  formControlName="itemPaymentType"
+                  placeholder="Select a item payment type."
+                  [showClear]="true"
+                ></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <!-- End of Item Vendor & Payment Type-->
+
+          <!-- Beginning of Item Room & Note-->
+          <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+              <div class="field">
+                <label for="itemRoom"> Item Room</label>
+                <p-dropdown
+                  class="p-inputtext-sm"
+                  [options]="roomsNameArray"
+                  name="itemRoom"
+                  id="itemRoom"
+                  formControlName="itemRoom"
+                  placeholder="Select a item room."
+                  [showClear]="true"
+                ></p-dropdown>
+                <small
+                  *ngIf="
+                    (editItemForm.controls['itemRoom'].invalid &&
+                      editItemForm.controls['itemRoom'].dirty) ||
+                    (editItemForm.invalid &&
+                      this.submitted &&
+                      editItemForm.controls['itemRoom'].invalid)
+                  "
+                  id="username-help"
+                  class="p-error"
+                  >Item room is required.</small
+                >
+              </div>
+            </div>
+            <div class="col-12 md:col-8">
+              <div class="field">
+                <label for="itemNote">Notes</label>
+                <textarea
+                  [rows]="5"
+                  [cols]="30"
+                  name="itemNote"
+                  id="itemNote"
+                  formControlName="itemNote"
+                  pInputTextarea
+                  [autoResize]="true"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <!-- End of Item Room & Note-->
+
+          <!-- Beginning of Buttons-->
+          <div class="flex justify-content-between">
+            <button
+              pButton
+              class="p-button-raised p-button-success"
+              label="Update"
+              icon="pi pi-check"
+              value="submit"
+            ></button>
+            <button
+              pButton
+              class="p-button-raised p-button-warning"
+              label="Cancel"
+              icon="pi pi-times"
+              routerLink="/items"
+            ></button>
+          </div>
+          <!-- End of Buttons-->
+        </form>
+      </ng-template>
+    </p-panel>
+  </div>
+</div>
