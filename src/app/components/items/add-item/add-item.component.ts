@@ -20,6 +20,7 @@ import { PaymentTypesService } from 'src/app/services/payment-types.service';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-item',
@@ -36,8 +37,11 @@ export class AddItemComponent implements OnInit {
   paymentTypesNameArray: String[] = [];
 
   rooms$!: Observable<Room[]>;
+  allRooms$!: Observable<Room[]>;
   roomsArray: Room[] = [];
   roomsNameArray: String[] = [];
+  tempRoomArray$!: Observable<Room[]>;
+  tempRoomValue: Room[] = [];
 
   stores$!: Observable<Store[]>;
   storesArray: Store[] = [];
@@ -79,7 +83,7 @@ export class AddItemComponent implements OnInit {
       itemPurchasePrice: '',
       itemVendor: '',
       itemPaymentType: '',
-      itemRoom: ['', Validators.required],
+      itemRoom: [{ roomName: '', roomLevel: '' }, Validators.required],
       itemNote: '',
     });
   }
@@ -126,6 +130,7 @@ export class AddItemComponent implements OnInit {
       roomToStore = el.roomName;
       this.roomsNameArray.push(roomToStore);
     });
+    console.log(this.roomsArray);
   }
 
   getStoresName(data: Store[]) {
@@ -137,7 +142,38 @@ export class AddItemComponent implements OnInit {
     });
   }
 
-  loadDwellingNameAndId() {
+  // Take value from Room Name Dropdown
+  // filter creates an array with one object
+
+  setDropDownValue(e: string) {
+    let tempName = '';
+    let tempLevel = '';
+    this.tempRoomArray$ = this.roomsService.getRooms();
+    this.tempRoomArray$.subscribe((data) => {
+      this.tempRoomValue = data;
+      console.log(this.tempRoomValue);
+
+      this.tempRoomValue.map((val) => {
+        if (val.roomName === e) {
+          tempName = val.roomName;
+          tempLevel = val.roomLevel;
+        }
+      });
+      console.log(tempName, tempLevel);
+      this.loadData(tempName, tempLevel);
+    });
+  }
+
+  loadData(name: string, level: string) {
+    console.log(name, level);
+    this.addItemForm.patchValue({
+      itemRoom: {
+        roomName: name,
+        roomLevel: level,
+      },
+    });
+    console.log(this.addItemForm);
+
     this.addItemForm.controls['itemDwellingName'].patchValue(
       this.dwelling.dwellingName
     );

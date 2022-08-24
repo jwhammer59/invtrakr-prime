@@ -28,7 +28,7 @@ export class ItemDetailComponent implements OnInit {
     itemPurchasePrice: '',
     itemVendor: '',
     itemPaymentType: '',
-    itemRoom: '',
+    itemRoom: { roomName: '', roomLevel: '' },
     itemNote: '',
   };
 

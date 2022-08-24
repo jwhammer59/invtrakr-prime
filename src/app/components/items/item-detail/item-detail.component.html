@@ -96,7 +96,12 @@
     <ng-template pTemplate="footer">
       <div class="flex justify-content-between">
         <div>
-          <span class="field-desc">Location Room: </span>{{ item.itemRoom }}
+          <span class="field-desc">Location Room: </span
+          >{{ item.itemRoom.roomName }}
+        </div>
+        <div>
+          <span class="field-desc">Location Level: </span
+          >{{ item.itemRoom.roomLevel }}
         </div>
         <div><span class="field-desc">Item Qty: </span>{{ item.itemQty }}</div>
       </div>

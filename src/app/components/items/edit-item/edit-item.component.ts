@@ -66,7 +66,7 @@ export class EditItemComponent implements OnInit {
       itemPurchasePrice: '',
       itemVendor: '',
       itemPaymentType: '',
-      itemRoom: ['', Validators.required],
+      itemRoom: [{ roomName: '', roomLevel: '' }, Validators.required],
       itemNote: '',
     });
   }
