@@ -256,10 +256,9 @@
                 <p-dropdown
                   class="p-inputtext-sm"
                   [options]="roomsNameArray"
-                  name="itemRoom"
                   id="itemRoom"
-                  formControlName="itemRoom"
                   placeholder="Select a item room."
+                  (onChange)="setDropDownValue($event.value)"
                   [showClear]="true"
                 ></p-dropdown>
                 <small

@@ -33,12 +33,97 @@
       {{ dwelling.dwellingName }}
     </ng-template>
 
-    <ng-template pTemplate="content">
+    <!-- <ng-template pTemplate="content">
       <p>Address 1: {{ dwelling.dwellingAddress1 }}</p>
       <p>Address 2: {{ dwelling.dwellingAddress2 }}</p>
       <p>City: {{ dwelling.dwellingCity }}</p>
       <p>State: {{ dwelling.dwellingState }}</p>
       <p>Zipcode: {{ dwelling.dwellingZipcode }}</p>
-    </ng-template>
+    </ng-template> -->
+
+    <p-accordion>
+      <p-accordionTab header="Dwelling Address">
+        <p><span>Address 1:</span> {{ dwelling.dwellingAddress1 }}</p>
+        <p><span>Address 2:</span> {{ dwelling.dwellingAddress2 }}</p>
+        <p><span>City:</span> {{ dwelling.dwellingCity }}</p>
+        <p><span>State:</span> {{ dwelling.dwellingState }}</p>
+        <p><span>Zipcode:</span> {{ dwelling.dwellingZipcode }}</p>
+      </p-accordionTab>
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <div class="header-text mr-4">Items</div>
+          <i
+            class="pi pi-tags mr-4 p-text-secondary"
+            pBadge
+            style="font-size: 1.5rem"
+            [value]="items.length.toString()"
+            severity="danger"
+          ></i>
+        </ng-template>
+        <p-table
+          [value]="items"
+          dataKey="item.id"
+          [rowHover]="true"
+          [rows]="10"
+          [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          responsiveLayout="scroll"
+          [paginator]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="itemName">
+                <span class="pl-4">Item Name</span>
+                <p-sortIcon field="itemName"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="itemName"
+                  display="menu"
+                  class="ml-auto"
+                ></p-columnFilter>
+              </th>
+              <th>
+                <span class="pl-4">Item Qty</span>
+              </th>
+              <th pSortableColumn="itemPurchaseDate">
+                <span class="pl-4">Purchase Date</span>
+                <p-sortIcon field="itemPurchaseDate"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="itemPurchaseDate"
+                  display="menu"
+                  class="ml-auto"
+                ></p-columnFilter>
+              </th>
+              <th>
+                <span class="pl-4">Purchase Price</span>
+              </th>
+              <th pSortableColumn="itemRoom.roomName">
+                <span class="pl-4">Room Name</span>
+                <p-sortIcon field="itemRoom.roomName"></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="itemRoom.roomName"
+                  display="menu"
+                  class="ml-auto"
+                ></p-columnFilter>
+              </th>
+            </tr>
+          </ng-template>
+          <<ng-template pTemplate="body" let-item>
+            <tr>
+              <td>
+                {{ item.itemName }}
+              </td>
+              <td>{{ item.itemQty }}</td>
+              <td>{{ item.itemPurchaseDate }}</td>
+              <td>{{ item.itemPurchasePrice | currency }}</td>
+              <td>{{ item.itemRoom.roomName }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-accordionTab>
+    </p-accordion>
   </p-card>
 </div>

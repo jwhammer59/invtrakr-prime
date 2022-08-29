@@ -20,7 +20,6 @@ import { PaymentTypesService } from 'src/app/services/payment-types.service';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-item',
@@ -89,8 +88,9 @@ export class AddItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
     this.primengConfig.ripple = true;
+    this.id = this.route.snapshot.params['id'];
+
     this.dwellingsService
       .getDwelling(this.id)
       .subscribe((dwelling) => (this.dwelling = dwelling));
@@ -130,7 +130,6 @@ export class AddItemComponent implements OnInit {
       roomToStore = el.roomName;
       this.roomsNameArray.push(roomToStore);
     });
-    console.log(this.roomsArray);
   }
 
   getStoresName(data: Store[]) {

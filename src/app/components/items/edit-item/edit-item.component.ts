@@ -26,7 +26,7 @@ export class EditItemComponent implements OnInit {
   submitted: boolean = false;
 
   editItemForm!: FormGroup;
-  id!: string;
+  id: string = '';
   userRef: any;
 
   paymentTypes$!: Observable<PaymentType[]>;
@@ -34,8 +34,11 @@ export class EditItemComponent implements OnInit {
   paymentTypesNameArray: String[] = [];
 
   rooms$!: Observable<Room[]>;
+  allRooms$!: Observable<Room[]>;
   roomsArray: Room[] = [];
   roomsNameArray: String[] = [];
+  tempRoomArray$!: Observable<Room[]>;
+  tempRoomValue: Room[] = [];
 
   stores$!: Observable<Store[]>;
   storesArray: Store[] = [];
@@ -92,7 +95,7 @@ export class EditItemComponent implements OnInit {
         itemPurchasePrice: [this.userRef.itemPurchasePrice],
         itemVendor: [this.userRef.itemVendor],
         itemPaymentType: [this.userRef.itemPaymentType],
-        itemRoom: [this.userRef.itemRoom],
+        itemRoom: [this.userRef.itemRoom.roomName],
         itemNote: [this.userRef.itemNote],
       });
     });
@@ -140,6 +143,38 @@ export class EditItemComponent implements OnInit {
       let storeToStore = '';
       storeToStore = el.storeName;
       this.storesNameArray.push(storeToStore);
+    });
+  }
+
+  // Take value from Room Name Dropdown
+  // filter creates an array with one object
+
+  setDropDownValue(e: string) {
+    let tempName = '';
+    let tempLevel = '';
+    this.tempRoomArray$ = this.roomsService.getRooms();
+    this.tempRoomArray$.subscribe((data) => {
+      this.tempRoomValue = data;
+      console.log(this.tempRoomValue);
+
+      this.tempRoomValue.map((val) => {
+        if (val.roomName === e) {
+          tempName = val.roomName;
+          tempLevel = val.roomLevel;
+        }
+      });
+      console.log(tempName, tempLevel);
+      this.loadData(tempName, tempLevel);
+    });
+  }
+
+  loadData(name: string, level: string) {
+    console.log(name, level);
+    this.editItemForm.patchValue({
+      itemRoom: {
+        roomName: name,
+        roomLevel: level,
+      },
     });
   }
 
