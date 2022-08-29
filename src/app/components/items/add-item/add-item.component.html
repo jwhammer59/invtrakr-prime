@@ -54,15 +54,17 @@
             <div class="col-12 md:col-4">
               <div class="field">
                 <label for="itemQty">Item Qty</label>
-                <p-inputMask
+                <input
                   name="itemQty"
-                  mask="9"
-                  slotChar="#"
+                  type="text"
+                  pInputText
+                  pKeyFilter="int"
                   class="p-inputtext-sm"
                   inputId="itemQty"
                   formControlName="itemQty"
-                >
-                </p-inputMask>
+                  placeholder="Enter Qty"
+                />
+
                 <small
                   *ngIf="
                     (addItemForm.controls['itemQty'].invalid &&
@@ -189,10 +191,11 @@
                   <input
                     type="text"
                     pInputText
+                    pKeyFilter="int"
                     inputId="itemPurchasePrice"
                     name="itemPurchasePrice"
                     formControlName="itemPurchasePrice"
-                    placeholder="Price"
+                    placeholder="Price ($'s only)"
                   />
                   <span class="p-inputgroup-addon">.00</span>
                 </div>
